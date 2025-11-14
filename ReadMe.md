@@ -1,78 +1,192 @@
-Keystone Redactor Framework
-🚀 What is this?
-A privacy-first AI pipeline that lets you use large language models (LLMs) like Gemini for real-world text tasks—without ever sending personal or sensitive information (PII) to third-party services.
+# 🔐 Keystone Redactor Framework
 
-This project provides:
+> **Privacy-first AI pipeline**: Detect, redact, process with LLMs, restore PII safely—without ever exposing sensitive data to third parties.
 
-Automated PII detection (names, emails, dates, locations, etc.)
+[![Python](https://img.shields.io/badge/Python-3.9%2B-blue.svg)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Gemini API](https://img.shields.io/badge/Powered%20by-Gemini%20AI-orange.svg)](https://ai.google.dev/)
 
-Bulletproof redaction with unique placeholders
+---
 
-Secure LLM integration (Gemini Cloud API)
+## 🚀 What Is This?
 
-De-redaction: restores PII in model outputs for practical, human-readable results
+A **production-ready privacy framework** for using Large Language Models (LLMs) like Google Gemini on sensitive data—**without ever sending Personal Identifiable Information (PII) to external APIs**.
 
-Full audit logs for compliance and demo
+### Core Features:
+- 🔍 **Automated PII Detection** — Names, emails, dates, locations, phone numbers, and more
+- 🛡️ **Secure Redaction** — Replaces PII with unique placeholders before LLM processing
+- 🤖 **LLM Integration** — Google Gemini API with full logging and error handling
+- 🔄 **Smart Restoration** — Restores original PII in LLM outputs for human-readable results
+- 📊 **Full Audit Trail** — Every stage logged for compliance and transparency
 
-<strong>Built for researchers, developers, and privacy-conscious organizations.</strong>
+**Built for GDPR compliance, enterprise security, and privacy-conscious AI development.**
 
-🌐 Why does this matter?
-LLMs are powerful, but sending raw data to cloud APIs exposes you—and your users—to risk. Keystone Redactor ensures sensitive data never leaves your secure zone. This is compliant with GDPR and other data protection standards.
+---
 
-🗂️ Project Structure
+## 🎯 Why Does This Matter?
+
+LLMs are powerful—but sending raw user data to cloud APIs is a **privacy and compliance risk**. Keystone Redactor ensures:
+- ✅ **Zero PII exposure** to third-party services
+- ✅ **GDPR/CCPA compliant** workflows
+- ✅ **Full auditability** for enterprise and research use
+- ✅ **Production-ready** modular architecture
+
+---
+
+## 📂 Project Structure
+
+Keystone-Redactor_Framework/
+├── redactor/
+│ ├── detector.py # PII detection (spaCy + regex)
+│ ├── redactor.py # Redaction with placeholder mapping
+│ ├── llm_client.py # Gemini API client
+│ ├── restorer.py # De-redaction and PII restoration
+│ └── init.py
+├── demo.py # End-to-end demonstration
+├── requirements.txt # Python dependencies
+├── .env.example # API key template
+├── .gitignore
+└── README.md
+
 text
-Keystone_Redactor_Framework/
-  ├── redactor/
-  │    ├── detector.py      # Entity detection (PII)
-  │    ├── redactor.py      # Redaction + mapping
-  │    ├── llm_client.py    # Gemini LLM interface
-  │    ├── restorer.py      # De-redaction (restore PII)
-  │    └── __init__.py
-  ├── demo.py               # End-to-end demonstration
-  ├── .env                  # Your Gemini API key
-  ├── README.md             # You are here.
-⚡ Quickstart
-Clone and set up dependencies:
 
-bash
-git clone ...
-cd Keystone_Redactor_Framework
+---
+
+## ⚡ Quick Start
+
+### 1. Clone and Install
+git clone https://github.com/karantomar11/Keystone-Redactor_Framework.git
+cd Keystone-Redactor_Framework
 pip install -r requirements.txt
-Add your Gemini API key:
-Create a .env file in the project root:
+python -m spacy download en_core_web_sm
 
 text
+
+### 2. Configure API Key
+Create a `.env` file in the project root:
 GEMINI_API_KEY=your-api-key-here
-Run the demo pipeline:
 
-bash
-python demo.py
-🛡️ How it works
-PIIDetector: Finds personal, sensitive, or regulated entities in text (using spaCy + regex)
-
-Redactor: Replaces each entity with a unique placeholder (e.g., [PERSON_A]), tracks mapping
-
-GeminiClient: Sends only redacted text to Gemini LLM (never leaks PII)
-
-Restorer: Safely restores original info in LLM outputs using the mapping
-
-Example Output
 text
-Original:  Dr. Evelyn Reed ... May 20, 2024 ... [e.reed@science-corp.net] ... $750
-Redacted: Dr. [PERSON_A] ... [DATE_A] ... [EMAIL_A] ... $[MONEY_A]
-LLM output: "A call is scheduled with Dr. [PERSON_A] for [DATE_A]. ..."
-Restored:  "A call is scheduled with Dr. Evelyn Reed for May 20, 2024 ..."
 
-📢 Why this matters (Use Cases)
-GDPR/enterprise compliance: Use LLMs on regulated data with zero exposure risk
+### 3. Run the Demo
+python demo.py
 
-Developer productivity: Reusable privacy pipeline for apps
+text
 
-Academic/research: Test privacy-preserving LLM workflows
+---
 
-Demo/Showcase: Prove strong privacy with live, auditable output
+## 🛠️ How It Works
 
-🏆 Credits & Contact
-Engineered by [Your Name], powered by Gemini & spaCy
+### Pipeline Overview
 
-Questions, bug reports, or contributors—open issues or reach out!
+Input Text (with PII)
+↓
+PIIDetector → Detects entities (names, emails, dates, etc.)
+↓
+Redactor → Replaces PII with placeholders: [PERSON_A], [EMAIL_A]
+↓
+LLM Client → Sends ONLY redacted text to Gemini API
+↓
+Restorer → Maps placeholders back to original PII
+↓
+Final Output (fully restored, human-readable)
+
+text
+
+### Example Workflow
+
+**Input:**
+"Schedule a call with Dr. Evelyn Reed for May 20, 2024.
+Email: e.reed@science-corp.net. Budget: $750."
+
+text
+
+**Redacted (sent to LLM):**
+"Schedule a call with Dr. [PERSON_A] for [DATE_A].
+Email: [EMAIL_A]. Budget: $[MONEY_A]."
+
+text
+
+**LLM Response:**
+"Here are the key points:
+
+Call scheduled with Dr. [PERSON_A] on [DATE_A]
+
+Contact: [EMAIL_A]
+
+Budget: $[MONEY_A]"
+
+text
+
+**Restored Output:**
+"Here are the key points:
+
+Call scheduled with Dr. Evelyn Reed on May 20, 2024
+
+Contact: e.reed@science-corp.net
+
+Budget: $750"
+
+text
+
+✅ **No PII ever sent to external APIs**
+
+---
+
+## 🧪 Use Cases
+
+- **Enterprise AI**: Use LLMs on customer data without compliance risk
+- **Healthcare & Legal**: Process sensitive documents with AI assistance
+- **Research**: Privacy-preserving NLP workflows
+- **Startups**: Build AI features with privacy by design
+
+---
+
+## 🔧 Extending the Framework
+
+- Swap LLM providers (OpenAI, Anthropic, etc.)
+- Add custom entity types (credit cards, SSNs, etc.)
+- Build a REST API or web interface
+- Integrate with data pipelines (batch processing, streaming)
+
+---
+
+## 📝 Requirements
+
+- Python 3.9+
+- Google Gemini API key ([Get one here](https://ai.google.dev/))
+- Dependencies: `spacy`, `google-generativeai`, `python-dotenv`
+
+---
+
+## 🤝 Contributing
+
+Contributions welcome! Please open issues or pull requests for:
+- New PII detection patterns
+- LLM provider integrations
+- Performance optimizations
+- Documentation improvements
+
+---
+
+## 📄 License
+
+MIT License - see [LICENSE](LICENSE) file for details.
+
+---
+
+## 👤 Author
+
+**Karan Tomar**  
+📍 Berlin, Germany  
+🔗 [GitHub](https://github.com/karantomar11) | [LinkedIn](https://linkedin.com/in/yourprofile)
+
+---
+
+## ⭐ Show Your Support
+
+If this project helped you, give it a ⭐️ on GitHub!
+
+---
+
+**Built with privacy in mind. Powered by AI.**
