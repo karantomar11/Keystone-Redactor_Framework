@@ -6,7 +6,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Gemini API](https://img.shields.io/badge/Powered%20by-Gemini%20AI-orange.svg)](https://ai.google.dev/)
 
-📺 Watch Demo Video | 📊 Live Examples (Healthcare, Energy, Legal) | ⭐ Star this repo
+📺 Watch Demo Video ( https://www.youtube.com/watch?v=3E3ebwnl4WY ) | 📊 Live Examples (Healthcare, Energy, Legal) ( https://drive.google.com/file/d/1WsmDhRylyi0-YuBBmHSp9Smz8MrdliRI/view )| ⭐ Star this repo
 
 🎯 The Problem
 Organizations want to use powerful LLMs (ChatGPT, Gemini, Claude) to automate tasks involving sensitive data—but regulations like GDPR, HIPAA, and attorney-client privilege make this illegal or risky.
