@@ -46,10 +46,18 @@ def run_demo_pipeline():
     # --- (a) Define a sample text with multiple PII types ---
     # This text contains a person's name, a date, a location, an email, and a monetary value.
     original_text = (
-        "Please schedule a call with Dr. Evelyn Reed for May 20, 2024. "
-        "She is currently in Berlin. Her contact email is e.reed@science-corp.net. "
-        "The budget for the consultation is $750."
-    )
+        """Re: Case- Contract Dispute
+
+           Client: Ms. Elena Kovač, CEO of TechVentures GmbH (Berlin, Germany)
+           Opposing Party: Global Solutions Ltd., represented by Attorney David Park
+           Case filed: August 5, 2024, at Berlin Regional Court
+
+            Ms. Kovač's contact: elena.kovac@techventures.de,
+            Disputed amount: €250,000 for breach of software licensing agreement dated January 12, 2023.
+
+            Next hearing: December 15, 2024, 10:00 AM, Courtroom 4B.
+            Our retainer: €15,000. """
+        )
     print("--- ORIGINAL TEXT ---")
     print(f"'{original_text}'\n")
 
@@ -74,7 +82,13 @@ def run_demo_pipeline():
     print(f"Prompt being sent: '{redacted_prompt}'\n")
     
     # We'll ask the LLM to summarize the information it received.
-    llm_task_prompt = f"Based on the following text, please summarize the key points in a bulleted list:\n\n{redacted_prompt}"
+    llm_task_prompt = f"""Based on the redacted legal case information below, draft a professional client status update email that:
+                          - Summarizes case progress to date
+                          - Outlines next steps and timeline
+                          - Maintains formal legal tone
+                          - Requests any additional documentation needed
+
+                        Redacted_Notes::\n\n{redacted_prompt}"""
     
     llm_response = gemini_client.send(llm_task_prompt)
     
